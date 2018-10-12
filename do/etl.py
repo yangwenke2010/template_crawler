@@ -588,3 +588,13 @@ class Do(LogBase):
 
             self.community_dict[community_id] = bd_data_dict
             return bd_data_dict
+
+
+    def  reInitializeTableData(self,tb_name):
+        re_table_data_sql   = "update {tb_name} set enabled = 0".format(tb_name=tb_name)
+        try:
+                self.execute(re_table_data_sql)
+        except Exception:
+                self._conn.rollback()
+        else:
+                self._conn.commit()   
